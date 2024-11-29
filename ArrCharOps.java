@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /** A library of operations on arrays of characters (char values).
  *  The library also features a string comparison method. */
 public class ArrCharOps {
@@ -7,21 +9,21 @@ public class ArrCharOps {
         char[] arr2 = {'U','n','d','e','r','s','t', 'o', 'o', 'd'};
         System.out.println(str);  // Prints the string
         println(arr1);            // Prints an array of characters
-        System.out.println(charAt(arr1,2));      
-        System.out.println(indexOf(arr1,'l'));  
-        System.out.println(indexOf(arr1,'l',3)); 
-        System.out.println(lastIndexOf(arr1, 'l'));
-        System.out.println(concat(arr1, arr2));
-        System.out.println(subArray(arr2, 2, 9));
-        System.out.println(compareTo("abcd", "abcd"));
-        System.out.println(compareTo("abc", "abcd"));
-        System.out.println(compareTo("abw", "abcd"));
-        System.out.println(compareTo("Abcd", "a"));
-        System.out.println(compareTo("apple", "banana"));
-        System.out.println(compareTo("apple", "applepie"));
-        System.out.println(compareTo("Zoo", "zoo"));
-        System.out.println(hashCode(arr1));
-        System.out.println(hashCode(arr2));
+        System.out.println(charAt(arr1,2));                           //e  
+        System.out.println(indexOf(arr1,'l'));                          // 1
+        System.out.println(indexOf(arr1,'l',3));               //5
+        System.out.println(lastIndexOf(arr1, 'l'));                     // 5 
+        System.out.println(concat(arr1, arr2));                            //clearlyUnderstud
+        System.out.println(subArray(arr2, 2, 9));      // derstood
+        System.out.println(compareTo("abcd", "abcd"));            // 0
+        System.out.println(compareTo("abc", "abcd"));            // -1
+        System.out.println(compareTo("abw", "abcd"));             // 1
+        System.out.println(compareTo("Abcd", "a"));              // -1
+        System.out.println(compareTo("apple", "banana"));        // -1
+        System.out.println(compareTo("apple", "applepie"));      // -1
+        System.out.println(compareTo("Zoo", "zoo"));             // -1
+        System.out.println(hashCode(arr1));                               //  1071050544   (11)
+        System.out.println(hashCode(arr2));                              //   618855452078 (12)
     }
 
     /** Prints the given array of characters, and moves the cursor to the next line.
@@ -89,7 +91,7 @@ public class ArrCharOps {
      * iterating, say, from 0 up to 10, you can iterate from 10 down to 0.
      */
     public static int lastIndexOf(char[] arr, char ch) {
-        for(int i = arr.length - 1; i >= 0; i ++){
+        for(int i = arr.length - 1; i >= 0; i --){
             if (arr[i] == ch){
                 return i;            //last time the char appears
             }
@@ -106,9 +108,14 @@ public class ArrCharOps {
         char[] newArray = new char[arr1.length + arr2.length];
         for(int i = 0; i < arr1.length; i ++){
             newArray[i] = arr1[i];
+            //System.out.println("newArray[i]: i = " + i + ", " + newArray[i]);
         }
-        for(int j = 0; j < arr1.length; j ++){
-            newArray[j] = arr2[j];
+        int index = arr1.length;
+        for(int j = 0; j < arr2.length; j ++){
+            //System.out.println("arr2[j]: j = " + + j + ", " + arr2[j]);
+            newArray[index] = arr2[j];
+            //System.out.println("newArray[index]: index = " + index + ", " + newArray[index]);
+            index ++;
         }
         return newArray;
     }
@@ -121,8 +128,10 @@ public class ArrCharOps {
     public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
         // new array from beginIndex until up to and including endIndex
         char[] subArray = new char[endIndex - beginIndex];
+        int j = 0;
         for(int i = beginIndex; i < endIndex; i++){
-            subArray[i] = arr[i];
+            subArray[j] = arr[i];
+            j ++;
         }
         return subArray;
     }
@@ -143,7 +152,7 @@ public class ArrCharOps {
         long answer = 0;
         for(int i = 0; i < n; i ++){
             //arr[0]*7^(n-1) + arr[1]*7^(n-2) + ... + arr[n-2]*7 + arr[n-1]
-            answer += arr[i] * (int)Math.pow(7, n - i + 1);
+            answer += arr[i] * (long)Math.pow(7, n - i - 1);
         }
         return answer;
     }
@@ -155,10 +164,11 @@ public class ArrCharOps {
      * Characters are compared one by one from left to right, using their numeric Unicode values,
         as follows:
      * 1. If two characters at the same position in both strings are different,
-     *    the string with the smaller character is considered lexicographically smaller.
+     *    the string with the smaller character is considered lexicographically smaller    ~if its str1: -1.
      * 2. If all characters in the shorter string match the corresponding characters
-     *    in the longer string, the shorter string is considered lexicographically smaller.
-     * 3. If both strings have the same characters and the same length, they are considered equal.
+     *    in the longer string, the shorter string is considered lexicographically smaller.  ~greater?: 1.
+     * 3. If both strings have the same characters and the same length, they are considered equal   ~: 0.
+     * 4. ~error: -2
      * 
      * Examples:
      * - "apple" is less than "banana" because 'a' comes before 'b'.
@@ -176,16 +186,30 @@ public class ArrCharOps {
 
      //Strings not empty, the int value of chars (==), 
     public static int compareTo(String str1, String str2) {
-        if (str1.length() > str2.length()){
-            compareToDifferentLength(str1, str2);
-        } else if (str1.length() < str2.length()){
-            compareToDifferentLength(str2, str1);
+        if (str1.length() < str2.length()){
+            for (int i = 0; i < str1.length(); i ++){
+                if (str2.charAt(i) != str1.charAt(i)){
+                    return false;
+                }
+            }
+            //return...
         }
+
+        // if (str1.length() > str2.length()){
+        //     compareToDifferentLength(str1, str2);
+        // } else if (str1.length() < str2.length()){
+        //     compareToDifferentLength(str2, str1);
+        // }
         return 0;
     }
 
-    public static int compareToDifferentLength(String longert, String shorter) {
-
-        return 0;
+    public static boolean compareToDifferentLength(String longer, String shorter) {
+            //char[] subLongest = subArray(longer, 0, shorter.length() - 1);
+            for (int i = 0; i < shorter.length(); i ++){
+                if (longer.charAt(i) != shorter.charAt(i)){
+                    return false;
+                }
+            }
+        return true;
     }
 }
