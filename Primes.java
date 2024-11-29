@@ -16,7 +16,7 @@ public class Primes {
     public static void main(String[] args) {
         int number = Integer.parseInt(args[0]);
         boolean[] arr = new boolean[number];
-        int halfLen = number / 2;
+        //int halfLen = number / 2;
         // if (number % 2 == 0){
         //     halfLen = number / 2;
         // } else {
