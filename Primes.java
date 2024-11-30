@@ -27,8 +27,8 @@ public class Primes {
             arr[i] = true;
         }
 
-        for (int i = 2; i < number; i ++){
-            for(int j = i + 1; j < number; j ++){
+        for (int i = 2; i < arr.length; i ++){
+            for(int j = i + 1; j < arr.length; j ++){
                 if(j % i == 0){
                     arr[j] = false;
                 }

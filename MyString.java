@@ -37,10 +37,14 @@ public class MyString {
         if(len1 < len2){       //str2 is shorter than str1
             return false;
         }
+        if(len2 == 0){
+            return true;
+        }
+
 
         char firstLetter2 = str2.charAt(0);
         for(int i = 0; i < (len1 - len2 + 1); i ++){
-            if(str1.charAt(i) == firstLetter2){     //same letter as first str2's letter
+            if(str1.charAt(i) == firstLetter2){
                 int index = i;
                 boolean cheak = true;
                 for(int j = 0; j < len2; j ++){    //cheaking all the letters 
