@@ -186,21 +186,38 @@ public class ArrCharOps {
 
      //Strings not empty, the int value of chars (==), 
     public static int compareTo(String str1, String str2) {
-        if (str1.length() < str2.length()){
-            for (int i = 0; i < str1.length(); i ++){
-                if (str2.charAt(i) != str1.charAt(i)){
-                    return 1;            //...............
-                }
-            }
-            //return...
+        int length1 = str1.length();
+        int length2 = str2.length();
+
+        //Error with the input
+        if(length1 == 0 || length2 == 0 || str2 == null || str1 == null){
+            return -2;
         }
 
-        // if (str1.length() > str2.length()){
-        //     compareToDifferentLength(str1, str2);
-        // } else if (str1.length() < str2.length()){
-        //     compareToDifferentLength(str2, str1);
-        // }
-        return 0;
+        //cheaking the strings
+        int j = 0;
+        while (j < length1 && j < length2){   
+            char char1 = str1.charAt(j);
+            char char2 = str2.charAt(j);
+
+            if((int)char1 < (int)char2){         //char1 is before char2
+                return -1;
+            } else if ((int)char1 > (int)char2){    //char1 is after char2
+                return 1;
+            }
+            j ++;                               //char1 is equal to char2
+        }
+
+        //All the chars are equal after while loop
+        if (length1 == length2){
+            return 0;
+        }
+        if (length1 > length2){
+            return -1;
+        }
+
+        //if(length1 < length2)
+        return 1;          
     }
 
     public static boolean compareToDifferentLength(String longer, String shorter) {
