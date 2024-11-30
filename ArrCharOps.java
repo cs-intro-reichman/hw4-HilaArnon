@@ -208,25 +208,15 @@ public class ArrCharOps {
             j ++;                               //char1 is equal to char2
         }
 
-        //All the chars are equal after while loop
+        //All the chars are equal after while loop`
         if (length1 == length2){
             return 0;
         }
         if (length1 > length2){
-            return -1;
+            return 1;
         }
 
         //if(length1 < length2)
-        return 1;          
-    }
-
-    public static boolean compareToDifferentLength(String longer, String shorter) {
-            //char[] subLongest = subArray(longer, 0, shorter.length() - 1);
-            for (int i = 0; i < shorter.length(); i ++){
-                if (longer.charAt(i) != shorter.charAt(i)){
-                    return false;
-                }
-            }
-        return true;
+        return -1;          
     }
 }
